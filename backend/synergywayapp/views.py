@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from rest_framework.viewsets import ModelViewSet
+from .serializers import GroupModelSerializer
+from .models import Group
 
-# Create your views here.
+
+class GroupModelViewSet(ModelViewSet):
+    queryset = Group.objects.all()
+    serializer_class = GroupModelSerializer
