@@ -16,10 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from synergywayapp.views import GroupModelViewSet
+from synergywayapp.views import GroupModelViewSet, UserModelViewSet
 
 router = DefaultRouter()
 router.register('groups', GroupModelViewSet)
+router.register('users', UserModelViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
