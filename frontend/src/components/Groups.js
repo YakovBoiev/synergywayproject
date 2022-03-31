@@ -1,25 +1,34 @@
 import React from 'react';
+import {Link, Redirect} from "react-router-dom";
 
-const GroupItem = ({group}) => {
+const GroupItem = ({group, removeGroup}) => {
     return(
         <tr>
             <td>{group.id}</td>
             <td>{group.name}</td>
             <td>{group.description}</td>
-            <td>{}</td>
+            <td>
+                <button>EDIT</button>
+                <button onClick={()=>removeGroup(group.id)}>DELETE</button>
+            </td>
         </tr>
     )
 }
 
-const GroupList = ({groups}) => {
+const GroupList = ({groups, removeGroup}) => {
     return(
+        <div>
+            <button>
+                <a href='/groups/create'>Add Group</a>
+            </button>
         <table>
             <th>Id</th>
             <th>Name</th>
             <th>Description</th>
             <th>actions</th>
-            {groups.map((group) => <GroupItem group={group}/>)}
+            {groups.map((group) => <GroupItem group={group} removeGroup={removeGroup}/>)}
         </table>
+        </div>
     )
 };
 

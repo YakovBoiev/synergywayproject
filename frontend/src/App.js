@@ -1,68 +1,113 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import axios from 'axios'
 import UserList from './components/Users.js'
 import GroupList from "./components/Groups";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import GroupForm from "./components/GroupForm";
+import {BrowserRouter as Router, Routes, Route, Link, Redirect} from 'react-router-dom';
 
-const NotFound404 = ({location}) => {
-    return(
-        <div>
-            <h1> Страница по адрресу '{location.pathname}' не найдена </h1>
-        </div>
-    )
-}
 
-class App extends Component {
-  constructor(props) {
+class App extends React.Component {
+    constructor(props) {
         super(props)
         this.state = {
-            'users' : [],
+            'users': [],
             'groups': []
         }
     }
 
-    componentDidMount() {
+
+    loadData () {
         axios.get('http://127.0.0.1:8000/api/users/')
-        .then(response => {
-                const users = response.data
-                this.setState(
-                    {
-                        'users': users
-                    }
-                )
-            }
-        )
-        .catch(error => console.log(error))
+            .then(response => {
+                    const users = response.data
+                    this.setState(
+                        {
+                            'users': users
+                        }
+                    )
+                }
+            )
+            .catch(error => console.log(error))
         axios.get('http://127.0.0.1:8000/api/groups/')
-        .then(response => {
-                const groups = response.data
-                this.setState(
-                    {
-                        'groups': groups
-                    }
-                )
-            }
-        )
-        .catch(error => console.log(error))
-        }
+            .then(response => {
+                    const groups = response.data
+                    this.setState(
+                        {
+                            'groups': groups
+                        }
+                    )
+                }
+            )
+            .catch(error => console.log(error))
+    }
+
+    createGroup(name, description){
+        axios.post('http://127.0.0.1:8000/api/groups/', {'name': name, 'description': description})
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(error => console.log(error))
+    }
+
+    removeGroup(_id){
+        axios.delete('http://127.0.0.1:8000/api/groups/' + _id)
+            .then(response => {
+                console.log(response.status)
+            })
+            .catch(error => console.log(error))
+    }
+
+    updateGroup(_id, name, description){
+        axios.patch('http://127.0.0.1:8000/api/groups/' + _id, {'name': name, 'description': description})
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(error => console.log(error))
+    }
 
 
 
-  render() {
-    return (
-      <div>
-          <Router>
-              <div>
-              <Routes>
-                  <Route path='/' element={<UserList users={this.state.users}/>} />
-                  <Route path='/groups' element={<GroupList groups={this.state.groups}/>} />
-              </Routes>
-              </div>
-          </Router>
-      </div>
-    );
-  }
+    removeUser(_id){
+        axios.delete('http://127.0.0.1:8000/api/users/' + _id)
+            .then(response => {
+
+            })
+
+    }
+
+
+
+    componentDidMount() {
+        this.loadData()
+    }
+
+
+    render() {
+        return (
+            <div>
+                <Router>
+                    <div>
+                        <nav>
+                            <ul>
+                                <li>
+                                    <Link to='/'>Users</Link>
+                                </li>
+                                <li>
+                                    <Link to='/groups'>Groups</Link>
+                                </li>
+                            </ul>
+                        </nav>
+                        <Routes>
+                            <Route path='/' element={<UserList users={this.state.users} removeUser={this.removeUser} />}/>
+                            <Route path='/groups' element={<GroupList groups={this.state.groups} removeGroup={this.removeGroup}/>}/>
+                            <Route path='/groups/create' element={<GroupForm createGroup={this.createGroup}/>}/>
+                        </Routes>
+                    </div>
+                </Router>
+            </div>
+        );
+    }
 }
 
 export default App;
