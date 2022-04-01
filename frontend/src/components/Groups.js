@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, Redirect} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const GroupItem = ({group, removeGroup}) => {
     return(
@@ -8,7 +8,7 @@ const GroupItem = ({group, removeGroup}) => {
             <td>{group.name}</td>
             <td>{group.description}</td>
             <td>
-                <button>EDIT</button>
+                <button><Link to={'/groups/create/' + group.id}>EDIT GROUP</Link></button>
                 <button onClick={()=>removeGroup(group.id)}>DELETE</button>
             </td>
         </tr>
@@ -19,7 +19,7 @@ const GroupList = ({groups, removeGroup}) => {
     return(
         <div>
             <button>
-                <a href='/groups/create/0'>Add Group</a>
+                <a href='/groups/create/0'>ADD GROUP</a>
             </button>
         <table>
             <th>Id</th>
@@ -30,6 +30,12 @@ const GroupList = ({groups, removeGroup}) => {
         </table>
         </div>
     )
+}
+
+const GroupSelect = ({groups}) => {
+    return(
+        groups.map((group) => <option value={group.id}>{group.name}</option>)
+    )
 };
 
-export default GroupList;
+export {GroupList, GroupSelect};

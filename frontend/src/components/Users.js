@@ -1,33 +1,31 @@
 import React from 'react';
 
 
-const UserItem = ({user, remove_user}) => {
+const UserItem = ({user, removeUser}) => {
     return(
         <tr>
             <td>{user.username}</td>
             <td>{user.created}</td>
             <td>{user.group.name}</td>
             <td>
-                <button>EDIT</button>
-                <button onClick={()=>remove_user(user.id)}>DELETE</button>
+                <button><a href={'/users/create/' + user.id}>EDIT USER</a></button>
+                <button onClick={()=>removeUser(user.id)}>DELETE</button>
             </td>
         </tr>
     )
 }
 
 
-const UserList = ({users, remove_user}) => {
+const UserList = ({users, removeUser}) => {
     return(
         <div>
-        <button>
-                <a href='/users/create/0'>Add User</a>
-            </button>
+        <button><a href='/users/create/0'>ADD USER</a></button>
         <table>
             <th>username</th>
             <th>created</th>
             <th>group</th>
             <th>actions</th>
-            {users.map((user) => <UserItem user={user} remove_user={remove_user}/>)}
+            {users.map((user) => <UserItem user={user} removeUser={removeUser}/>)}
         </table>
         </div>
     )

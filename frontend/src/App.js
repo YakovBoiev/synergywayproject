@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import axios from 'axios'
 import UserList from './components/Users.js'
-import GroupList from "./components/Groups";
+import {GroupList} from "./components/Groups";
 import GroupForm from "./components/GroupForm";
 import {BrowserRouter as Router, Routes, Route, Link, Redirect} from 'react-router-dom';
 import UserForm from "./components/UserForm";
@@ -51,6 +51,14 @@ class App extends React.Component {
             .catch(error => console.log(error))
     }
 
+    updateGroup(_id, name, description){
+        axios.patch('http://127.0.0.1:8000/api/groups/' + _id, {'name': name, 'description': description})
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(error => console.log(error))
+    }
+
     removeGroup(_id){
         axios.delete('http://127.0.0.1:8000/api/groups/' + _id)
             .then(response => {
@@ -75,6 +83,14 @@ class App extends React.Component {
             .catch(error => console.log(error))
     }
 
+    removeUser(_id){
+        axios.delete('http://127.0.0.1:8000/api/users/' + _id)
+            .then(response => {
+                console.log(response.status)
+            })
+            .catch(error => console.log(error))
+    }
+
 
     componentDidMount() {
         this.loadData()
@@ -89,10 +105,10 @@ class App extends React.Component {
                         <nav>
                             <ul>
                                 <li>
-                                    <Link to='/'>Users</Link>
+                                    <Link to='/'>USERS</Link>
                                 </li>
                                 <li>
-                                    <Link to='/groups'>Groups</Link>
+                                    <Link to='/groups'>GROUPS</Link>
                                 </li>
                             </ul>
                         </nav>
@@ -100,7 +116,7 @@ class App extends React.Component {
                             <Route path='/' element={<UserList users={this.state.users} removeUser={this.removeUser} />}/>
                             <Route path='/groups' element={<GroupList groups={this.state.groups} removeGroup={this.removeGroup}/>}/>
                             <Route path='/groups/create/:id' element={<GroupForm createGroup={this.createGroup}/>}/>
-                            <Route path='/users/create/:id' element={<UserForm createUser={this.createUser}/>}/>
+                            <Route path='/users/create/:id' element={<UserForm groups={this.state.groups} createUser={this.createUser}/>}/>
                         </Routes>
                     </div>
                 </Router>

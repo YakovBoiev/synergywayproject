@@ -1,13 +1,13 @@
 import React from "react";
-import {useParams} from "react-router-dom";
+import {GroupSelect} from "./Groups";
 
 
 class UserForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            'surname': '',
-            'group': ''
+            'username': '',
+            'group_id': ''
         }
     }
 
@@ -16,21 +16,25 @@ class UserForm extends React.Component {
             {
                 [event.target.name]: event.target.value
             }
+
         )
+        console.log(this.username, this.group_id)
     };
 
     handleSubmit(event) {
-        this.props.createUser(this.state.group, this.state.surname)
-        console.log(this.state.group, this.state.surname)
+        this.props.createUser(this.state.group_id, this.state.username)
+        console.log(this.state.group_id, this.state.username)
         event.preventDefault()
     }
+
 
     render() {
         return (
             <form onSubmit={(event) => this.handleSubmit(event)}>
-                <input type="text" name="group" placeholder="group" value={this.state.name}
-                       onChange={(event) => this.handleChange(event)}/>
-                <input type="text" name="surname" placeholder="surname" value={this.state.description}
+                <select name="group_id" value={this.state.group_id} onChange={(event) => this.handleChange(event)}>
+                <GroupSelect groups={this.props.groups}/>
+                </select>
+                <input type="text" name="username" placeholder="username" value={this.state.username}
                        onChange={(event) => this.handleChange(event)}/>
                 <input type="submit" value="Add User"/>
             </form>
