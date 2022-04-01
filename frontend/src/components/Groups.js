@@ -19,7 +19,7 @@ const GroupList = ({groups, removeGroup}) => {
     return(
         <div>
             <button>
-                <a href='/groups/create'>Add Group</a>
+                <a href='/groups/create/0'>Add Group</a>
             </button>
         <table>
             <th>Id</th>

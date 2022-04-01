@@ -5,6 +5,7 @@ import UserList from './components/Users.js'
 import GroupList from "./components/Groups";
 import GroupForm from "./components/GroupForm";
 import {BrowserRouter as Router, Routes, Route, Link, Redirect} from 'react-router-dom';
+import UserForm from "./components/UserForm";
 
 
 class App extends React.Component {
@@ -66,16 +67,13 @@ class App extends React.Component {
             .catch(error => console.log(error))
     }
 
-
-
-    removeUser(_id){
-        axios.delete('http://127.0.0.1:8000/api/users/' + _id)
+    createUser(group_id, username){
+        axios.post('http://127.0.0.1:8000/api/users/', {'group': group_id, 'username': username})
             .then(response => {
-
+                console.log(response.data)
             })
-
+            .catch(error => console.log(error))
     }
-
 
 
     componentDidMount() {
@@ -101,7 +99,8 @@ class App extends React.Component {
                         <Routes>
                             <Route path='/' element={<UserList users={this.state.users} removeUser={this.removeUser} />}/>
                             <Route path='/groups' element={<GroupList groups={this.state.groups} removeGroup={this.removeGroup}/>}/>
-                            <Route path='/groups/create' element={<GroupForm createGroup={this.createGroup}/>}/>
+                            <Route path='/groups/create/:id' element={<GroupForm createGroup={this.createGroup}/>}/>
+                            <Route path='/users/create/:id' element={<UserForm createUser={this.createUser}/>}/>
                         </Routes>
                     </div>
                 </Router>

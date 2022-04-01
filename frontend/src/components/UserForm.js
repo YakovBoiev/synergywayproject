@@ -2,16 +2,14 @@ import React from "react";
 import {useParams} from "react-router-dom";
 
 
-class GroupForm extends React.Component {
+class UserForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            'name': '',
-            'description': ''
+            'surname': '',
+            'group': ''
         }
     }
-
-
 
     handleChange(event) {
         this.setState(
@@ -22,22 +20,22 @@ class GroupForm extends React.Component {
     };
 
     handleSubmit(event) {
-        this.props.createGroup(this.state.name,this.state.description)
-        console.log(this.id)
+        this.props.createUser(this.state.group, this.state.surname)
+        console.log(this.state.group, this.state.surname)
         event.preventDefault()
     }
 
     render() {
         return (
             <form onSubmit={(event) => this.handleSubmit(event)}>
-                <input type="text" name="name" placeholder="name" value={this.state.name}
+                <input type="text" name="group" placeholder="group" value={this.state.name}
                        onChange={(event) => this.handleChange(event)}/>
-                <input type="text" name="description" placeholder="description" value={this.state.description}
+                <input type="text" name="surname" placeholder="surname" value={this.state.description}
                        onChange={(event) => this.handleChange(event)}/>
-                <input type="submit" value="Add Group"/>
+                <input type="submit" value="Add User"/>
             </form>
         );
     }
 }
 
-export default GroupForm;
+export default UserForm;

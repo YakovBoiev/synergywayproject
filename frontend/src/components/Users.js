@@ -19,7 +19,9 @@ const UserItem = ({user, remove_user}) => {
 const UserList = ({users, remove_user}) => {
     return(
         <div>
-        <button>Add User</button>
+        <button>
+                <a href='/users/create/0'>Add User</a>
+            </button>
         <table>
             <th>username</th>
             <th>created</th>
