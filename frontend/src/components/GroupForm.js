@@ -9,6 +9,7 @@ class GroupForm extends React.Component {
             'name': '',
             'description': ''
         }
+
     }
 
 
