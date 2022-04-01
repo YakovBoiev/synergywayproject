@@ -8,7 +8,7 @@ const GroupItem = ({group, removeGroup}) => {
             <td>{group.name}</td>
             <td>{group.description}</td>
             <td>
-                <button><Link to={'/groups/create/' + group.id}>EDIT GROUP</Link></button>
+                <button><a href={'/groups/create/' + group.id}>EDIT GROUP</a></button>
                 <button onClick={()=>removeGroup(group.id)}>DELETE</button>
             </td>
         </tr>
