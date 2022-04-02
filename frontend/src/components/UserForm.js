@@ -23,8 +23,8 @@ class UserForm extends React.Component {
 
     handleSubmit(event) {
         this.props.createUser(this.state.group_id, this.state.username)
-        console.log(this.state.group_id, this.state.username)
         event.preventDefault()
+        window.location.assign('/')
     }
 
 

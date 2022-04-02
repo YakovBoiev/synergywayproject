@@ -8,7 +8,7 @@ const GroupItem = ({group, removeGroup}) => {
             <td>{group.name}</td>
             <td>{group.description}</td>
             <td>
-                <button><a href={'/groups/create/' + group.id}>EDIT GROUP</a></button>
+                <button>EDIT</button>
                 <button onClick={()=>removeGroup(group.id)}>DELETE</button>
             </td>
         </tr>
@@ -18,9 +18,7 @@ const GroupItem = ({group, removeGroup}) => {
 const GroupList = ({groups, removeGroup}) => {
     return(
         <div>
-            <button>
-                <a href='/groups/create/0'>ADD GROUP</a>
-            </button>
+             <Link to='/groups/create/0'>ADD GROUPS</Link>
         <table>
             <th>Id</th>
             <th>Name</th>

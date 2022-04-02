@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 
 
 const UserItem = ({user, removeUser}) => {
@@ -8,8 +9,8 @@ const UserItem = ({user, removeUser}) => {
             <td>{user.created}</td>
             <td>{user.group.name}</td>
             <td>
-                <button><a href={'/users/create/' + user.id}>EDIT USER</a></button>
-                <button onClick={()=>removeUser(user.id)}>DELETE</button>
+                <button>EDIT USER</button>
+                <button onClick={()=>removeUser(user.id)} >DELETE</button>
             </td>
         </tr>
     )
@@ -19,7 +20,7 @@ const UserItem = ({user, removeUser}) => {
 const UserList = ({users, removeUser}) => {
     return(
         <div>
-        <button><a href='/users/create/0'>ADD USER</a></button>
+            <Link to='/users/create/0'>ADD USER </Link>
         <table>
             <th>username</th>
             <th>created</th>

@@ -46,23 +46,16 @@ class App extends React.Component {
     createGroup(name, description){
         axios.post('http://127.0.0.1:8000/api/groups/', {'name': name, 'description': description})
             .then(response => {
-                console.log(response.data)
             })
             .catch(error => console.log(error))
+
     }
 
-    updateGroup(_id, name, description){
-        axios.patch('http://127.0.0.1:8000/api/groups/' + _id, {'name': name, 'description': description})
-            .then(response => {
-                console.log(response.data)
-            })
-            .catch(error => console.log(error))
-    }
 
     removeGroup(_id){
         axios.delete('http://127.0.0.1:8000/api/groups/' + _id)
             .then(response => {
-                console.log(response.status)
+                window.location.assign('/')
             })
             .catch(error => console.log(error))
     }
@@ -71,7 +64,6 @@ class App extends React.Component {
     createUser(group_id, username){
         axios.post('http://127.0.0.1:8000/api/users/', {'group': group_id, 'username': username})
             .then(response => {
-                console.log(response.data)
             })
             .catch(error => console.log(error))
     }
@@ -79,13 +71,13 @@ class App extends React.Component {
     removeUser(_id){
         axios.delete('http://127.0.0.1:8000/api/users/' + _id)
             .then(response => {
-                console.log(response.status)
+                window.location.assign('/')
             })
             .catch(error => console.log(error))
     }
 
     componentDidMount() {
-        this.loadData()
+        this.setState(this.loadData)
     }
 
 
@@ -107,7 +99,7 @@ class App extends React.Component {
                         <Routes>
                             <Route path='/' element={<UserList users={this.state.users} removeUser={this.removeUser} />}/>
                             <Route path='/groups' element={<GroupList groups={this.state.groups} removeGroup={this.removeGroup}/>}/>
-                            <Route path='/groups/create/:id' element={<GroupForm createGroup={this.createGroup} />}/>
+                            <Route path='/groups/create/:id' ex element={<GroupForm createGroup={this.createGroup} />}/>
                             <Route path='/users/create/:id' element={<UserForm groups={this.state.groups} createUser={this.createUser}/>}/>
                         </Routes>
                     </div>
