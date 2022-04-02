@@ -24,8 +24,8 @@ class GroupForm extends React.Component {
 
     handleSubmit(event) {
         this.props.createGroup(this.state.name,this.state.description)
-        console.log(this.id)
         event.preventDefault()
+        window.location.assign('/')
     }
 
     render() {
