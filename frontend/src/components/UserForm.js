@@ -7,7 +7,7 @@ class UserForm extends React.Component {
         super(props)
         this.state = {
             'username': '',
-            'group_id': ''
+            'group_id': this.props.groups[0].id
         }
     }
 
